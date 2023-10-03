@@ -1,6 +1,7 @@
 package main
 
 import (
+	"AccuknoxProblem/notes"
 	"AccuknoxProblem/user"
 
 	"github.com/gin-gonic/gin"
@@ -11,9 +12,9 @@ func main() {
 
 	gin.POST("/signup", user.Signup)
 	gin.POST("/login", user.Login)
-	gin.GET("/notes", user.GetNotes)
-	gin.POST("/notes", user.PostNotes)
-	gin.DELETE("/notes", user.DeleteNote)
+	gin.GET("/notes", notes.GetNotes)
+	gin.POST("/notes", notes.PostNotes)
+	gin.DELETE("/notes", notes.DeleteNote)
 
 	gin.Run("localhost:8080")
 }

@@ -44,3 +44,7 @@ func Login(c *gin.Context) {
 
 	c.JSON(200, user)
 }
+
+func GetUserStore() *models.UserStore {
+	return users
+}

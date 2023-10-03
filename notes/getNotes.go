@@ -1,7 +1,8 @@
-package user
+package notes
 
 import (
 	"AccuknoxProblem/models"
+	"AccuknoxProblem/user"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,7 +16,7 @@ func GetNotes(c *gin.Context) {
 		c.JSON(400, "Invaid request body")
 		return
 	}
-
+	users := user.GetUserStore()
 	expired := users.CheckSidExpired(notes.Sid)
 	if expired {
 		c.JSON(401, "Session Expired, please login again.")
