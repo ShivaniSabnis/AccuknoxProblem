@@ -1,7 +1,7 @@
 package models
 
 type NotesRequest struct {
-	Sid  string `json:"sid"`
+	Sid  string `json:"sid" validate:"required"`
 	Id   int    `json:"id"`
 	Note string `json:"note"`
 }

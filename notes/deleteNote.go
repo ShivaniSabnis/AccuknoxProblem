@@ -5,6 +5,7 @@ import (
 	"AccuknoxProblem/user"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 )
 
 func DeleteNote(c *gin.Context) {
@@ -12,6 +13,11 @@ func DeleteNote(c *gin.Context) {
 
 	if err := c.BindJSON(&notes); err != nil {
 		c.JSON(400, "Invaid request body")
+		return
+	}
+	validate := validator.New()
+	if err := validate.Struct(notes); err != nil {
+		c.JSON(400, "Invalid or missing request body")
 		return
 	}
 

@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 )
 
 var NoteId = 0
@@ -15,6 +16,11 @@ func PostNotes(c *gin.Context) {
 
 	if err := c.BindJSON(&notes); err != nil {
 		c.JSON(400, "Invaid request body")
+		return
+	}
+	validate := validator.New()
+	if err := validate.Struct(notes); err != nil || len(notes.Note) == 0 {
+		c.JSON(400, "Invalid or missing request body")
 		return
 	}
 

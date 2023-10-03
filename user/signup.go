@@ -4,6 +4,7 @@ import (
 	"AccuknoxProblem/models"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -14,6 +15,12 @@ func Signup(c *gin.Context) {
 
 	if err := c.BindJSON(&user); err != nil {
 		c.JSON(400, "Invalid request body")
+		return
+	}
+
+	validate := validator.New()
+	if err := validate.Struct(user); err != nil {
+		c.JSON(400, "Invalid or missing request body")
 		return
 	}
 

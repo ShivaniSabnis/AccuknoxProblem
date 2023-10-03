@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -15,6 +16,12 @@ func Login(c *gin.Context) {
 
 	if err := c.BindJSON(&user); err != nil {
 		c.JSON(400, "Invaid request body")
+		return
+	}
+
+	validate := validator.New()
+	if err := validate.Struct(user); err != nil {
+		c.JSON(400, "Invalid or missing request body")
 		return
 	}
 
